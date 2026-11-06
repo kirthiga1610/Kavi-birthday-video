@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Kavinila | First Birthday 🎀</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Georgia, serif;
+  background: linear-gradient(135deg,#ffe4ed,#f3e3ff,#fff0d5);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  color: #70445e;
+}
+
+.container {
+  width: 100%;
+  max-width: 1050px;
+  text-align: center;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+button {
+  border: none;
+  border-radius: 30px;
+  padding: 12px 20px;
+  background: white;
+  color: #a34e78;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 12px #0002;
+}
+
+button.primary {
+  background: #ed83ac;
+  color: white;
+}
+
+button:hover {
+  transform: translateY(-2px);
+}
+
+.screen {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  overflow: hidden;
+  border: 6px solid white;
+  border-radius: 22px;
+  background: #ffe2ed;
+  box-shadow: 0 15px 45px #9d668544;
+}
+
+.intro, .ending {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: linear-gradient(135deg,#ffe0ec,#eadcff,#fff0cc);
+  transition: opacity 1.2s;
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.small-title {
+  font: bold clamp(10px,1.6vw,16px) Arial;
+  letter-spacing: 4px;
+  color: #bc648c;
+  text-transform: uppercase;
+}
+
+.one {
+  font-size: clamp(70px,14vw,150px);
+  color: #e5ad45;
+  text-shadow: 3px 5px white;
+}
+
+h1 {
+  font-size: clamp(28px,6vw,68px);
+  color: #c45c89;
+  font-weight: normal;
+  margin: 8px 0;
+}
+
+p {
+  font-size: clamp(13px,2.3vw,23px);
+  line-height: 1.5;
+  margin: 10px;
+  max-width: 750px;
+}
+
+.heart {
+  position: absolute;
+  font-size: 30px;
+  animation: float 4s infinite ease-in-out;
+}
+
+.heart1 {top:10%;left:12%}
+.heart2 {top:15%;right:12%}
+.heart3 {bottom:12%;left:15%}
+.heart4 {bottom:15%;right:15%}
+
+@keyframes float {
+  50% {transform:translateY(-20px) rotate(15deg)}
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: scale(1.08);
+  transition: opacity 1.3s ease,transform 5.5s ease;
+}
+
+.slide.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slide::after {
+  content: "";
+  position: absolute;
+  inset: 45% 0 0;
+  background: linear-gradient(transparent,#16091aaa);
+}
+
+.caption {
+  position: absolute;
+  z-index: 2;
+  bottom: 8%;
+  left: 5%;
+  right: 5%;
+  color: white;
+  font-size: clamp(17px,3vw,35px);
+  text-shadow: 0 2px 10px black;
+}
+
+.progress {
+  position: absolute;
+  bottom: 0;
+  height: 5px;
+  background: #ffffff88;
+  width: 100%;
+  z-index: 8;
+}
+
+.bar {
+  height: 100%;
+  width: 0;
+  background: #ffdf8d;
+}
+
+.confetti {
+  position: absolute;
+  inset: 0;
+  z-index: 7;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.piece {
+  position: absolute;
+  top: -15px;
+  animation: fall 5s linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(700deg);
+    opacity: 0;
+  }
+}
+
+.footer {
+  margin-top: 15px;
+  font: 12px Arial;
+  color: #946d87;
+}
+
+@media(max-width:600px) {
+  body {padding:8px}
+  .screen {border-width:3px;border-radius:14px}
+  button {padding:10px 13px;font-size:12px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="controls">
+
+<button class="primary" onclick="playVideo()">▶ PLAY VIDEO</button>
+<button onclick="pauseVideo()">Ⅱ PAUSE</button>
+<button onclick="restartVideo()">↻ RESTART</button>
+<button onclick="fullscreen()">⛶ FULLSCREEN</button>
+
+</div>
+
+<div class="screen" id="screen">
+
+<!-- OPENING -->
+
+<div class="intro" id="intro">
+
+<div class="heart heart1">♡</div>
+<div class="heart heart2">✦</div>
+<div class="heart heart3">♡</div>
+<div class="heart heart4">✧</div>
+
+<div class="small-title">A little princess turns</div>
+
+<div class="one">ONE!</div>
+
+<h1>Happy Birthday!</h1>
+
+<h1>Kavinila 🎀</h1>
+
+<p>
+One whole year of tiny giggles,
+beautiful memories and endless love.
+</p>
+
+<div class="small-title">
+November 8 · Your First Birthday
+</div>
+
+</div>
+
+<!-- PHOTO SLIDES -->
+
+<div id="slides"></div>
+
+<!-- BACKGROUND MUSIC -->
+
+<audio id="song" src="music/birthday.mp3" preload="auto"></audio>
+
+<!-- FINAL WISHES -->
+
+<div class="ending hidden" id="ending">
+
+<div class="small-title">To our sweetest little sunshine</div>
+
+<h1>Happy 1st Birthday!</h1>
+
+<h1>Kavinila ❤️</h1>
+
+<p>
+May your life always sparkle with happiness,
+your days overflow with laughter,
+and your heart always be surrounded by love.
+</p>
+
+<div class="one">♡</div>
+
+<p>
+You are our little miracle,
+our bundle of joy and our greatest blessing.
+</p>
+
+<h1>We Love You! 💗</h1>
+
+<div class="small-title">Keep shining, little princess!</div>
+
+</div>
+
+<div class="confetti" id="confetti"></div>
+
+<div class="progress">
+<div class="bar" id="bar"></div>
+</div>
+
+</div>
+
+<div class="footer">
+Made with endless love for Kavinila's first birthday ✨
+</div>
+
+</div>
+
+<script>
+
+// PHOTO PATHS
+
+const photoFiles = [
+  "photos/photo1.jpg",
+  "photos/photo2.jpg",
+  "photos/photo3.jpg",
+  "photos/photo4.jpg",
+  "photos/photo5.jpg",
+  "photos/photo6.jpg",
+  "photos/photo7.jpg",
+  "photos/photo8.jpg",
+  "photos/photo9.jpg",
+  "photos/photo10.jpg",
+  "photos/photo11.jpg",
+  "photos/photo12.jpg"
+];
+
+// PHOTO CAPTIONS
+
+const captions = [
+  "The day our little miracle arrived 💗",
+  "Tiny hands, the biggest place in our hearts",
+  "A smile that makes every day brighter",
+  "Little giggles, endless happiness",
+  "Growing, glowing and stealing hearts",
+  "Every moment with you is a treasure",
+  "Our little sunshine, our greatest joy",
+  "So many beautiful memories",
+  "Loved beyond words, today and always",
+  "Our princess, our little angel",
+  "One year of magical memories",
+  "And the sweetest adventure is just beginning!"
+];
+
+const slidesContainer = document.getElementById("slides");
+const intro = document.getElementById("intro");
+const ending = document.getElementById("ending");
+const song = document.getElementById("song");
+const bar = document.getElementById("bar");
+
+let slides = [];
+let current = -1;
+let timer = null;
+let progressTimer = null;
+let playing = false;
+
+const duration = 5000;
+
+// CREATE PHOTOS
+
+photoFiles.forEach((src,index) => {
+
+  const slide = document.createElement("div");
+  slide.className = "slide";
+
+  const img = document.createElement("img");
+  img.src = src;
+  img.alt = "Kavinila birthday memory " + (index+1);
+
+  img.onerror = () => {
+    console.error("Photo not found:",src);
+  };
+
+  const caption = document.createElement("div");
+  caption.className = "caption";
+  caption.textContent = captions[index];
+
+  slide.appendChild(img);
+  slide.appendChild(caption);
+
+  slidesContainer.appendChild(slide);
+
+  slides.push(slide);
+
+});
+
+// CONFETTI ANIMATION
+
+function celebrate() {
+
+  const container = document.getElementById("confetti");
+
+  container.innerHTML = "";
+
+  const symbols = ["✦","♡","◆","●","♥"];
+
+  for(let i=0;i<65;i++) {
+
+    const piece = document.createElement("span");
+
+    piece.className = "piece";
+
+    piece.textContent =
+      symbols[Math.floor(Math.random()*symbols.length)];
+
+    piece.style.left = Math.random()*100+"%";
+
+    piece.style.color =
+      ["#f06b9b","#e6b34f","#9d75c9","#fff"][i%4];
+
+    piece.style.animationDuration =
+      (3+Math.random()*4)+"s";
+
+    piece.style.animationDelay =
+      Math.random()*2+"s";
+
+    container.appendChild(piece);
+
+  }
+
+}
+
+// DISPLAY PHOTO
+
+function showSlide(index) {
+
+  slides.forEach((slide,i) => {
+
+    slide.classList.toggle("active",i===index);
+
+  });
+
+  current = index;
+
+  bar.style.width = "0%";
+
+  const start = Date.now();
+
+  clearInterval(progressTimer);
+
+  progressTimer = setInterval(() => {
+
+    const percent = Math.min(
+      100,
+      (Date.now()-start)/duration*100
+    );
+
+    bar.style.width = percent+"%";
+
+  },50);
+
+}
+
+// NEXT PHOTO
+
+function nextSlide() {
+
+  if(!playing) return;
+
+  if(current < slides.length-1) {
+
+    showSlide(current+1);
+
+  } else {
+
+    finishVideo();
+
+  }
+
+}
+
+// ENDING SCREEN
+
+function finishVideo() {
+
+  clearInterval(timer);
+  clearInterval(progressTimer);
+
+  song.pause();
+
+  slides.forEach(slide => {
+    slide.classList.remove("active");
+  });
+
+  ending.classList.remove("hidden");
+
+  celebrate();
+
+  bar.style.width = "100%";
+
+  playing = false;
+
+}
+
+// PLAY VIDEO
+
+function playVideo() {
+
+  if(slides.length===0) {
+    alert("No photos found!");
+    return;
+  }
+
+  clearInterval(timer);
+  clearInterval(progressTimer);
+
+  intro.classList.add("hidden");
+  ending.classList.add("hidden");
+
+  if(current < 0 || current >= slides.length-1) {
+    current = -1;
+  }
+
+  playing = true;
+
+  celebrate();
+
+  // Start birthday song after the user presses Play
+
+  if(current < 0) {
+    song.currentTime = 0;
+  }
+
+  song.play().catch(() => {
+    alert("Music could not start. Please check your song file.");
+  });
+
+  nextSlide();
+
+  timer = setInterval(nextSlide,duration);
+
+}
+
+// PAUSE
+
+function pauseVideo() {
+
+  playing = false;
+
+  clearInterval(timer);
+  clearInterval(progressTimer);
+
+  song.pause();
+
+}
+
+// RESTART
+
+function restartVideo() {
+
+  pauseVideo();
+
+  song.currentTime = 0;
+
+  current = -1;
+
+  slides.forEach(slide => {
+    slide.classList.remove("active");
+  });
+
+  ending.classList.add("hidden");
+  intro.classList.remove("hidden");
+
+  bar.style.width = "0%";
+
+}
+
+// FULLSCREEN
+
+function fullscreen() {
+
+  const screen = document.getElementById("screen");
+
+  if(!document.fullscreenElement) {
+
+    screen.requestFullscreen?.();
+
+  } else {
+
+    document.exitFullscreen?.();
+
+  }
+
+}
+
+</script>
+
+</body>
+</html>
